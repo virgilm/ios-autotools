@@ -73,7 +73,7 @@ fi
 if [ ! -z "$SDKVERSION" ]; then
   SDKNAME=$(basename $(xcrun --sdk $SDK --show-sdk-platform-path) .platform)
   export SDKVERSION
-  export SDKROOT=$(xcrun --sdk $SDK --show-sdk-platform-path)"/Developer/SDKs/$SDKNAME.$SDKVERSION.sdk"
+  export SDKROOT=$(xcrun --sdk $SDK --show-sdk-platform-path)"/Developer/SDKs/$SDKNAME$SDKVERSION.sdk"
 else
   export SDKVERSION=$(xcrun --sdk $SDK --show-sdk-version) # current version
   export SDKROOT=$(xcrun --sdk $SDK --show-sdk-path) # current version
@@ -93,8 +93,10 @@ export CXX=$(xcrun --sdk $SDK --find g++)
 export LD=$(xcrun --sdk $SDK --find ld)
 
 # Flags
-export CFLAGS="$CFLAGS -arch $ARCH -isysroot $SDKROOT -I$PREFIX/include -miphoneos-version-min=$SDKVERSION"
-export CPPFLAGS="$CPPFLAGS -arch $ARCH -isysroot $SDKROOT -I$PREFIX/include -miphoneos-version-min=$SDKVERSION"
+export CFLAGS="$CFLAGS -arch $ARCH -isysroot $SDKROOT -I$PREFIX/include"
+# -miphoneos-version-min=$SDKVERSION"
+export CPPFLAGS="$CPPFLAGS -arch $ARCH -isysroot $SDKROOT -I$PREFIX/include"
+# -miphoneos-version-min=$SDKVERSION"
 export CXXFLAGS="$CXXFLAGS -arch $ARCH -isysroot $SDKROOT -I$PREFIX/include"
 export LDFLAGS="$LDFLAGS -arch $ARCH -isysroot $SDKROOT -L$PREFIX/lib"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH":"$SDKROOT/usr/lib/pkgconfig":"$PREFIX/lib/pkgconfig"
